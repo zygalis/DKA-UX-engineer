@@ -1,6 +1,6 @@
 import { createTaskItem } from './taskItem.js';
 
-export function createTaskListContainer(containerWrapper) {
+export function createTaskListContainer(taskListContainer) {
   const newContainer = document.createElement('div');
   newContainer.classList.add('container');
   newContainer.setAttribute('data-modal', `modal-${Date.now()}`);
@@ -21,6 +21,56 @@ export function createTaskListContainer(containerWrapper) {
     ul.insertBefore(newTask, ul.firstChild);
   });
 
-  newContainer.append(title, ul, addTaskBtn);
-  containerWrapper.appendChild(newContainer);
+  // Create radio button filters
+  const filterContainer = document.createElement('div');
+  filterContainer.className = 'filter-container';
+
+  const filters = [
+    { value: '1', label: 'Not Started' },
+    { value: '2', label: 'In Progress' },
+    { value: '3', label: 'Completed' },
+    { value: 'all', label: 'Show All' },
+  ];
+
+  filters.forEach(filter => {
+    const label = document.createElement('label');
+    label.className = 'filter-label';
+
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = `filter-${Date.now()}`;
+    radio.value = filter.value;
+    radio.className = 'filter-radio';
+
+    if (filter.value === 'all') {
+      radio.checked = true;
+    }
+
+    radio.addEventListener('change', () => {
+      const status = radio.value;
+      newContainer.querySelectorAll('li').forEach(task => {
+        if (status === 'all') {
+          task.style.display = 'block';
+        } else {
+          const taskStatus = task.getAttribute('data-status');
+          task.style.display = taskStatus === status ? 'block' : 'none';
+        }
+      });
+    });
+
+    label.append(radio, document.createTextNode(filter.label));
+    filterContainer.appendChild(label);
+  });
+
+  // Reorder elements for accessibility
+  newContainer.append(title, addTaskBtn, filterContainer, ul);
+  taskListContainer.appendChild(newContainer);
+
+  // Ensure global click listener is added only once
+  if (!document.body.hasAttribute('dropdown-listener')) {
+    document.body.setAttribute('dropdown-listener', 'true');
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.dropdown-menu').forEach(menu => menu.style.display = 'none');
+    });
+  }
 }

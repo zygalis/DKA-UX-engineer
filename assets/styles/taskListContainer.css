@@ -36,3 +36,36 @@
   pointer-events: none;
   filter: grayscale(100%);
 }
+
+/* Ensure the task list container uses a flex layout */
+.task-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem; /* Add spacing between task lists */
+}
+
+/* Each task list should take up one-third of the container */
+.task-list {
+    flex: 1 1 calc(33.333% - 1rem); /* Subtract gap to fit 3 in a row */
+    min-width: 250px; /* Prevent task lists from becoming too narrow */
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 1024px) {
+    .task-list {
+        flex: 1 1 calc(50% - 1rem); /* Fit 2 in a row */
+    }
+}
+
+@media (max-width: 768px) {
+    .task-list {
+        flex: 1 1 calc(100% - 1rem); /* Stack task lists vertically */
+    }
+
+    .container {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+}

@@ -1,0 +1,75 @@
+.add-task-button,
+.add-new-button,
+.button-toolbar button {
+  font: inherit;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.add-task-button,
+.add-new-button {
+  background-color: #d9cbb6;
+  color: #5a5a3f;
+}
+
+.add-task-button:hover,
+.add-new-button:hover {
+  background-color: #c4b79e;
+  color: #3e3e2c;
+}
+
+.button-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.filter-button {
+  background-color: #d9cbb6;
+  color: #5a5a3f;
+}
+
+.filter-button:hover {
+  background-color: #c4b79e;
+  color: #3e3e2c;
+}
+
+.edit-button {
+  background-color: #0096ff;
+  color: #fff;
+}
+
+.edit-button:hover {
+  background-color: #007acc;
+}
+
+.delete-button {
+  background-color: #ff4d4d;
+  color: #fff;
+}
+
+.delete-button:hover {
+  background-color: #e60000;
+}
+
+.neutral-button {
+  background-color: #ffffff;
+  color: #444;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.neutral-button:hover {
+  background-color: #f5f5f5;
+  border-color: #bbb;
+}
