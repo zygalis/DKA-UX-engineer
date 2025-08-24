@@ -3,7 +3,16 @@
   <head>
     <title>Task list</title>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="assets/styles/global.css" />
+    <link rel="stylesheet" href="assets/styles/taskListContainer.css" />
+    <link rel="stylesheet" href="assets/styles/taskItem.css" />
+    <link rel="stylesheet" href="assets/styles/buttons.css" />
+
+    <script src="assets/scripts/taskItem.js" type="module" defer></script>
+    <script src="assets/scripts/taskListContainer.js" type="module" defer></script>
+    <script src="assets/scripts/main.js" type="module" defer></script>
   </head>
+
   <body>
     <header>
       <div>
@@ -11,8 +20,11 @@
         <p>Task list application</p>
       </div>
     </header>
+    
     <div class="add-new-container">
-        button class="add-new-button">Add New</button>
+      <button class="add-new-button">Add New</button>
     </div>
+
+    <div class="container-wrapper"></div>
   </body>
 </html>

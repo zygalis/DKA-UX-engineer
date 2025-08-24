@@ -1,11 +1,11 @@
-.taskListContainer-wrapper {
+.container-wrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
   justify-content: left;
 }
 
-.taskListContainer {
+.container {
   position: relative;
   flex: 1 1 calc(33.333% - 16px);
   max-width: calc(33.333% - 16px);
@@ -18,16 +18,21 @@
   z-index: 20;
 }
 
-.taskListContainer h2 {
+.container h2 {
   margin: 0 0 8px;
   font-size: 1.25rem;
   color: #8b7d6b;
   padding-right: 40px;
 }
 
-@media (max-width: 768px) {
-  .taskListContainer {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
+.container.modal-open {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 20;
+}
+
+.container-wrapper.dimmed .container:not(.modal-open) {
+  opacity: 0.5;
+  pointer-events: none;
+  filter: grayscale(100%);
 }

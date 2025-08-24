@@ -1,30 +1,74 @@
-.taskListContainer ul {
+.container ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  max-height: calc(3 * 3rem);
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #c4b79e #fdf6e3;
 }
 
-.taskListContainer ul li {
+.container ul li {
+  position: relative;
+  padding-right: 32px;
   font-size: 0.85rem;
   border-radius: 4px;
   padding: 0.75rem 1rem;
   margin: 0.5rem 0;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-  position: relative;
-  padding-right: 32px;
+  transition: background-color 0.2s ease, text-decoration 0.2s ease;
 }
 
-.taskListContainer ul li.status-1 { background-color: #d9cbb6; color: #3e3e2c; }
-.taskListContainer ul li.status-2 { background-color: #eae4d3; color: #4a4a3f; }
-.taskListContainer ul li.status-3 {
-  background-color: #f5f5dc;
-  color: #5a5a3f;
-  text-decoration: line-through;
+/* Status: Not Started */
+.container ul li.status-1 {
+  background-color: #e8f5e9;
+  color: #2e7d32;
 }
 
-.taskListContainer ul li:hover { opacity: 0.8; }
+/* Status: In Progress */
+.container ul li.status-2 {
+  background-color: #c8e6c9;
+  color: #1b5e20;
+}
+
+/* Status: Completed */
+.container ul li.status-3 {
+  background-color: #a5d6a7;
+  color: #4caf50; 
+  text-decoration: line-through overline;
+}
+
+/* Status toggle styles */
+.status-toggle {
+  margin-right: 12px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.task-text {
+  display: inline-block;
+  vertical-align: middle;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-text:focus {
+  outline: 2px solid #66bb6a;
+  background-color: #e8f5e9;
+}
+
+/* Remove button styles */
+.remove-task-button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
