@@ -1,0 +1,30 @@
+.taskListContainer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: calc(3 * 3rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #c4b79e #fdf6e3;
+}
+
+.taskListContainer ul li {
+  font-size: 0.85rem;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  position: relative;
+  padding-right: 32px;
+}
+
+.taskListContainer ul li.status-1 { background-color: #d9cbb6; color: #3e3e2c; }
+.taskListContainer ul li.status-2 { background-color: #eae4d3; color: #4a4a3f; }
+.taskListContainer ul li.status-3 {
+  background-color: #f5f5dc;
+  color: #5a5a3f;
+  text-decoration: line-through;
+}
+
+.taskListContainer ul li:hover { opacity: 0.8; }

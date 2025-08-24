@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: #f5f5dc;
+  color: #5a5a3f;
+  margin: 2rem;
+}
+
+header {
+  margin: 2rem 0;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  color: #8b7d6b;
+}
+
+header p {
+  margin: 0;
+  color: #a89f91;
+}
