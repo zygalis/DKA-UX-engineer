@@ -1,6 +1,13 @@
 import { createTaskItem } from './taskItem.js';
 
 export function createTaskListContainer(taskListContainer) {
+  // Create a live region for screen readers
+  const liveRegion = document.createElement('div');
+  liveRegion.setAttribute('aria-live', 'polite');
+  liveRegion.setAttribute('role', 'status');
+  liveRegion.className = 'visually-hidden';
+  newContainer.appendChild(liveRegion);
+  
   const newContainer = document.createElement('div');
   newContainer.classList.add('container');
   newContainer.setAttribute('data-modal', `modal-${Date.now()}`);
@@ -19,6 +26,10 @@ export function createTaskListContainer(taskListContainer) {
   addTaskBtn.addEventListener('click', () => {
     const newTask = createTaskItem('New Task', 1);
     ul.insertBefore(newTask, ul.firstChild);
+    liveRegion.textContent = '';
+    setTimeout(() => {
+      liveRegion.textContent = 'New task item added';
+    }, 100); // Delay to allow screen readers to detect the change
   });
 
   // Create radio button filters
