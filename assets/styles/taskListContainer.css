@@ -69,3 +69,8 @@
         max-width: 100%;
     }
 }
+
+/* Add spacing between filters and the button */
+.filter-fieldset + .add-task-button {
+  margin-top: 1rem;
+}

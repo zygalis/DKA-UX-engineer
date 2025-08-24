@@ -1,16 +1,16 @@
 import { createTaskItem } from './taskItem.js';
 
 export function createTaskListContainer(taskListContainer) {
+  const newContainer = document.createElement('div');
+  newContainer.classList.add('container');
+  newContainer.setAttribute('data-modal', `modal-${Date.now()}`);
+
   // Create a live region for screen readers
   const liveRegion = document.createElement('div');
   liveRegion.setAttribute('aria-live', 'polite');
   liveRegion.setAttribute('role', 'status');
   liveRegion.className = 'visually-hidden';
   newContainer.appendChild(liveRegion);
-  
-  const newContainer = document.createElement('div');
-  newContainer.classList.add('container');
-  newContainer.setAttribute('data-modal', `modal-${Date.now()}`);
 
   const title = document.createElement('h2');
   title.className = 'editable-title';
@@ -18,13 +18,13 @@ export function createTaskListContainer(taskListContainer) {
   title.textContent = 'New Task List';
 
   const ul = document.createElement('ul');
-  ul.appendChild(createTaskItem('First Task', 1));
+  ul.appendChild(createTaskItem('Newly added task item', 1));
 
   const addTaskBtn = document.createElement('button');
   addTaskBtn.className = 'add-task-button';
   addTaskBtn.textContent = 'Add Task';
   addTaskBtn.addEventListener('click', () => {
-    const newTask = createTaskItem('New Task', 1);
+    const newTask = createTaskItem('Newly added task item', 1);
     ul.insertBefore(newTask, ul.firstChild);
     liveRegion.textContent = '';
     setTimeout(() => {
@@ -32,16 +32,22 @@ export function createTaskListContainer(taskListContainer) {
     }, 100); // Delay to allow screen readers to detect the change
   });
 
-  // Create radio button filters
-  const filterContainer = document.createElement('div');
-  filterContainer.className = 'filter-container';
+  const filterFieldset = document.createElement('fieldset');
+  filterFieldset.className = 'filter-fieldset';
+  filterFieldset.setAttribute('aria-label', 'Task Filters');
+
+  const legend = document.createElement('legend');
+  legend.textContent = 'Filter tasks by status';
+  filterFieldset.appendChild(legend);
 
   const filters = [
+    { value: 'all', label: 'Show All' },
     { value: '1', label: 'Not Started' },
     { value: '2', label: 'In Progress' },
     { value: '3', label: 'Completed' },
-    { value: 'all', label: 'Show All' },
   ];
+
+  const radioGroupName = `filter-group`;
 
   filters.forEach(filter => {
     const label = document.createElement('label');
@@ -49,9 +55,11 @@ export function createTaskListContainer(taskListContainer) {
 
     const radio = document.createElement('input');
     radio.type = 'radio';
-    radio.name = `filter-${Date.now()}`;
+    radio.name = radioGroupName;
     radio.value = filter.value;
     radio.className = 'filter-radio';
+    radio.setAttribute('tabindex', '0');
+    radio.setAttribute('aria-label', filter.label);
 
     if (filter.value === 'all') {
       radio.checked = true;
@@ -70,18 +78,31 @@ export function createTaskListContainer(taskListContainer) {
     });
 
     label.append(radio, document.createTextNode(filter.label));
-    filterContainer.appendChild(label);
+    filterFieldset.appendChild(label);
   });
 
-  // Reorder elements for accessibility
-  newContainer.append(title, addTaskBtn, filterContainer, ul);
-  taskListContainer.appendChild(newContainer);
+  // Add keyboard navigation for radio buttons
+  filterFieldset.addEventListener('keydown', (event) => {
+    const radios = Array.from(filterFieldset.querySelectorAll('.filter-radio'));
+    const currentIndex = radios.indexOf(document.activeElement);
 
-  // Ensure global click listener is added only once
-  if (!document.body.hasAttribute('dropdown-listener')) {
-    document.body.setAttribute('dropdown-listener', 'true');
-    document.addEventListener('click', () => {
-      document.querySelectorAll('.dropdown-menu').forEach(menu => menu.style.display = 'none');
-    });
-  }
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+      event.preventDefault();
+      const nextIndex = (currentIndex + 1) % radios.length;
+      radios[nextIndex].focus();
+    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      const prevIndex = (currentIndex - 1 + radios.length) % radios.length;
+      radios[prevIndex].focus();
+    } else if (event.key === 'Enter') {
+      event.preventDefault();
+      if (currentIndex !== -1) {
+        radios[currentIndex].checked = true;
+        radios[currentIndex].dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+  });
+
+  newContainer.append(title, filterFieldset, addTaskBtn, ul);
+  taskListContainer.appendChild(newContainer);
 }
