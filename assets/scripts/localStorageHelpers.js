@@ -1,28 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // Task list management
-    const TASK_LISTS_KEY = "taskLists";
-
-    // Retrieve task lists from localStorage or initialize as an empty array
-    const taskLists = getFromLocalStorage(TASK_LISTS_KEY) || [];
-
-    // Debugging log to verify retrieval
-    console.log("Retrieved Task Lists:", taskLists);
-
-    // Function to save task lists to localStorage
-    function saveTaskLists() {
-        saveToLocalStorage(TASK_LISTS_KEY, taskLists);
-    }
-
-    function addTaskList(name) {
-        taskLists.push({ name, tasks: [] });
-        saveTaskLists();
-    }
-
-    console.log("Initial Task Lists:", taskLists);
-    addTaskList("New Task List");
-    console.log("Updated Task Lists:", taskLists);
-});
-
 // Save task lists to localStorage
 export function saveTaskLists(taskLists) {
   if (!Array.isArray(taskLists)) {
@@ -46,6 +21,7 @@ export function saveTaskLists(taskLists) {
 
 // Retrieve task lists from localStorage
 export function getTaskLists() {
+  console.log('getTaskLists()');
   const data = localStorage.getItem('taskLists');
   if (!data) return [];
 

@@ -1,5 +1,6 @@
 import { createTaskListContainer } from './taskListContainer.js';
 import { statuses } from './taskItem.js';
+import { getTaskLists } from './localStorageHelpers.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   const taskListView = document.querySelector(".task-list-view");
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Add a button to open the detailed view
     const openButton = document.createElement("button");
     openButton.textContent = "Open";
+    openButton.classList.add('open-button');
     openButton.addEventListener("click", () => {
       console.log("Open button clicked for task list:", taskList.name);
 
@@ -39,8 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Clear the detailed view container
       taskListContainer.innerHTML = "";
 
-      // Use the createTaskListContainer function to populate the detailed view
-      const newContainer = createTaskListContainer(taskListContainer);
+      const newContainer = createTaskListContainer(taskListContainer, taskList.name, true);
       console.log("New container created:", newContainer);
 
       // Set the title and tasks for the selected task list
@@ -121,6 +122,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     taskListElement.appendChild(openButton);
+
+    // Add delete button next to the open button during initial rendering
+    const deleteButton = document.createElement('button');
+    deleteButton.classList.add('delete-task-list-button');
+    deleteButton.innerHTML = '🗑️'; // Trashcan icon
+    deleteButton.setAttribute('aria-label', 'Delete this task list');
+    deleteButton.style.marginLeft = '10px'; // Add spacing between buttons
+    deleteButton.addEventListener('click', () => {
+      const confirmation = confirm('Are you sure you want to delete this task list?');
+      if (confirmation) {
+        taskListElement.remove();
+      }
+    });
+
+    openButton.insertAdjacentElement('afterend', deleteButton);
+
     mainViewContainer.appendChild(taskListElement);
   });
 
@@ -151,22 +168,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
-function getTaskLists() {
-  const taskLists = localStorage.getItem("taskLists");
-  if (taskLists && taskLists !== "undefined") {
-    try {
-      const parsed = JSON.parse(taskLists);
-      return Array.isArray(parsed) ? parsed : []; // Ensure the result is an array
-    } catch (error) {
-      console.error("Invalid JSON in localStorage for taskLists:", error);
-      return []; // Return an empty array as a fallback
-    }
-  }
-  return []; // Return an empty array if no data is found
-}
-
-function saveToLocalStorage(key, data) {
-  // Save data to local storage
-  localStorage.setItem(key, JSON.stringify(data));
-}

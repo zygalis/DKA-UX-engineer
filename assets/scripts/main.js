@@ -34,38 +34,6 @@ addNewButton.addEventListener('click', () => {
 
   taskListView.classList.add('active');
 
-  const closeButton = document.createElement('button');
-  closeButton.innerHTML = '&times;';
-  closeButton.classList.add('close-task-list-view-button');
-  closeButton.addEventListener('click', () => {
-    taskListView.classList.remove('active');
-
-    const updatedName = taskListElement.querySelector('.editable-title')?.textContent || 'Untitled Task List';
- 
-    const updatedTasks = Array.from(taskListElement.querySelectorAll('ul li')).map(taskItem => {
-      const taskNameElement = taskItem.querySelector('.task-text');
-
-      const taskText = taskNameElement && taskNameElement.textContent.trim() !== '' 
-        ? taskNameElement.textContent.trim() 
-        : 'Unnamed Task';
-      const taskStatus = taskItem.getAttribute('data-status') || 'pending';
-
-      return {
-        text: taskText,
-        status: taskStatus
-      };
-    });
-
-    newTaskList.name = updatedName;
-    newTaskList.tasks = updatedTasks;
-
-    const taskLists = getTaskLists();
-    taskLists.push(newTaskList);
-    localStorage.setItem('taskLists', JSON.stringify(taskLists));
-    console.log('Updated task list saved to local storage:', newTaskList);
-  });
-  taskListView.appendChild(closeButton);
-
   // Update the live region for screen readers
   liveRegion.textContent = '';
   setTimeout(() => {

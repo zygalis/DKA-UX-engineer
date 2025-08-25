@@ -1,6 +1,7 @@
 import { createTaskItem } from './taskItem.js';
 import { addDeleteFunctionality } from './deleteTaskList.js';
 import { createTaskFilter } from './taskFilter.js';
+import { getTaskLists } from './localStorageHelpers.js';
 
 export function createTaskListContainer(taskListContainer, taskListName = 'New Task List', editMode = false) {
   const newContainer = document.createElement('div');
@@ -42,6 +43,96 @@ export function createTaskListContainer(taskListContainer, taskListName = 'New T
 
   // Call the delete functionality after creating the task list container
   addDeleteFunctionality(taskListContainer);
+
+  if (editMode) {
+    // Create and style the Save button
+    const saveButton = document.createElement('button');
+    saveButton.className = 'save-task-button';
+    saveButton.textContent = 'Save';
+    saveButton.style.marginLeft = '10px'; // Add spacing for alignment
+    saveButton.addEventListener('click', () => {
+      const updatedName = newContainer.querySelector('.editable-title')?.textContent || 'Untitled Task List';
+      const updatedTasks = Array.from(newContainer.querySelectorAll('ul li')).map(taskItem => {
+        const taskNameElement = taskItem.querySelector('.task-name');
+        const taskText = taskNameElement && taskNameElement.textContent.trim() !== '' 
+          ? taskNameElement.textContent.trim() 
+          : 'Unnamed Task';
+        const taskStatus = parseInt(taskItem.getAttribute('data-status'), 10) || 1;
+
+        return {
+          text: taskText,
+          status: taskStatus
+        };
+      });
+
+      const taskLists = getTaskLists();
+      const taskListIndex = taskLists.findIndex(list => list.name === taskListName);
+      if (taskListIndex !== -1) {
+        taskLists[taskListIndex] = { name: updatedName, tasks: updatedTasks };
+      } else {
+        taskLists.push({ name: updatedName, tasks: updatedTasks });
+      }
+
+      localStorage.setItem('taskLists', JSON.stringify(taskLists));
+      console.log('Task list saved:', { name: updatedName, tasks: updatedTasks });
+      alert('Task list saved successfully!');
+
+      // Close and refresh the page
+      taskListContainer.innerHTML = '';
+      location.reload();
+    });
+
+    addTaskBtn.insertAdjacentElement('afterend', saveButton);
+  } else {
+    // Create and style the Create List button
+    const createListButton = document.createElement('button');
+    createListButton.className = 'create-list-button';
+    createListButton.textContent = 'Create List';
+    createListButton.style.marginLeft = '10px'; // Add spacing for alignment
+    createListButton.addEventListener('click', () => {
+      const newListName = newContainer.querySelector('.editable-title')?.textContent || 'New Task List';
+      const newTasks = Array.from(newContainer.querySelectorAll('ul li')).map(taskItem => {
+        const taskNameElement = taskItem.querySelector('.task-name');
+        const taskText = taskNameElement && taskNameElement.textContent.trim() !== '' 
+          ? taskNameElement.textContent.trim() 
+          : 'Unnamed Task';
+        const taskStatus = parseInt(taskItem.getAttribute('data-status'), 10) || 1;
+
+        return {
+          text: taskText,
+          status: taskStatus
+        };
+      });
+
+      const taskLists = getTaskLists();
+      taskLists.push({ name: newListName, tasks: newTasks });
+      localStorage.setItem('taskLists', JSON.stringify(taskLists));
+      console.log('New task list created:', { name: newListName, tasks: newTasks });
+      alert('New task list created successfully!');
+
+      // Close and refresh the page
+      taskListContainer.innerHTML = '';
+      location.reload();
+    });
+
+    addTaskBtn.insertAdjacentElement('afterend', createListButton);
+  }
+
+  // Add close button to the task list container
+  const closeButton = document.createElement('button');
+  closeButton.innerHTML = '&times;';
+  closeButton.classList.add('close-task-list-view-button');
+  closeButton.addEventListener('click', () => {
+    taskListContainer.innerHTML = '';
+    location.reload(); // Refresh the page
+  });
+
+  // Style the close button to position it in the top-right corner
+  closeButton.style.position = 'absolute';
+  closeButton.style.top = '8px';
+  closeButton.style.right = '8px';
+
+  newContainer.appendChild(closeButton);
 
   // Return the newly created container
   return newContainer;
