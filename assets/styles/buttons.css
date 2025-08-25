@@ -118,3 +118,19 @@
   outline: 2px solid #ff4c4c;
   outline-offset: 2px;
 }
+
+.close-detailed-view-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: transparent;
+  color: #ff6b6b;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-detailed-view-button:hover {
+  color: #ff0000;
+}

@@ -25,6 +25,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Save task lists to localStorage
 export function saveTaskLists(taskLists) {
+  if (!Array.isArray(taskLists)) {
+    console.error('Expected taskLists to be an array, but got:', taskLists);
+    return;
+  }
+
   const data = taskLists.map((taskListElement) => {
     const name = taskListElement.querySelector('h3').textContent;
     const tasks = Array.from(taskListElement.querySelectorAll('li')).map((task) => {

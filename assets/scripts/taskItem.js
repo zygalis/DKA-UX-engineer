@@ -8,6 +8,11 @@ const statuses = [
 
 // Function to create a task item
 export function createTaskItem(text = '', status = 1) {
+  if (status < 1 || status > statuses.length || isNaN(status)) {
+    console.warn(`Invalid status: ${status}. Defaulting to 1.`);
+    status = 1; // Default to 'Not Started' if the status is invalid
+  }
+
   // Create a live region for screen readers
   const liveRegion = document.createElement('div');
   liveRegion.setAttribute('aria-live', 'polite');
@@ -35,6 +40,16 @@ export function createTaskItem(text = '', status = 1) {
     const currentStatus = parseInt(li.getAttribute('data-status'), 10);
     const nextStatus = currentStatus === 3 ? 1 : currentStatus + 1;
     updateTaskStatus(li, statusToggle, nextStatus);
+
+    // Notify taskListView.js about the status change
+    const ul = li.closest('ul');
+    if (ul) {
+      const index = Array.from(ul.children).indexOf(li);
+      const event = new CustomEvent('statusChange', {
+        detail: { index, nextStatus },
+      });
+      ul.dispatchEvent(event);
+    }
   }
 
   // Create the status toggle

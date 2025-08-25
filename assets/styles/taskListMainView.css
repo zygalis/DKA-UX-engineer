@@ -1,0 +1,35 @@
+/* Refined styles for the main view task lists */
+.task-list-container-main-view {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Increased gap for better spacing */
+  justify-content: center; /* Centered alignment for a cleaner look */
+  background: #f8f9fa; /* Subtle background color for better contrast */
+  padding: 24px; /* Slightly increased padding */
+  border-radius: 10px; /* Softer corners */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow for depth */
+  max-width: 800px; /* Increased width for larger screens */
+  width: 100%;
+  margin: 30px auto; /* Adjusted margin for better spacing */
+}
+
+.task-list-item {
+  display: flex;
+  justify-content: center; /* Center the name of the list */
+  align-items: center;
+  flex: 1 1 calc(50% - 20px);
+  max-width: calc(50% - 20px);
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  font-size: 1.25rem; /* Larger font for list name */
+  font-weight: bold;
+  color: #343a40; /* Darker text color */
+  text-align: center; /* Ensure text is centered */
+}
+
+.task-list-item:hover {
+  transform: translateY(-6px); /* Slightly more pronounced hover effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}

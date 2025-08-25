@@ -43,6 +43,13 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 1rem;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  margin: 20px auto;
 }
 
 .task-list {
@@ -78,4 +85,192 @@
 /* Add spacing between filters and the button */
 .filter-fieldset + .add-task-button {
   margin-top: 1rem;
+}
+
+/* Style for individual task list items in the detailed view */
+.task-list-container .task-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
+
+.task-list-container .task-list-item h3 {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.task-list-container .task-list-item .status-toggle {
+  cursor: pointer;
+  font-size: 1.5em;
+}
+
+.task-list-container .task-list-item .remove-task-button {
+  background: none;
+  border: none;
+  color: #ff0000;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.task-list-container .task-list-item .remove-task-button:hover {
+  color: #cc0000;
+}
+
+.task-list-item {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.task-list-container-main-view {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.task-list-container-main-view ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-list-container-main-view ul li {
+  position: relative;
+  padding-right: 32px;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease, text-decoration 0.2s ease;
+}
+
+/* Status: Not Started */
+.task-list-container-main-view ul li.status-1 {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* Status: In Progress */
+.task-list-container-main-view ul li.status-2 {
+  background-color: #c8e6c9;
+  color: #1b5e20;
+}
+
+/* Status: Completed */
+.task-list-container-main-view ul li.status-3 {
+  background-color: #a5d6a7;
+  color: #4caf50; 
+  text-decoration: line-through overline;
+}
+
+/* Status toggle styles */
+.task-list-container-main-view .status-toggle {
+  margin-right: 12px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.task-list-container-main-view .task-text {
+  display: inline-block;
+  vertical-align: middle;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-list-container-main-view .task-text:focus {
+  outline: 2px solid #66bb6a;
+  background-color: #e8f5e9;
+}
+
+/* Remove button styles */
+.task-list-container-main-view .remove-task-button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+/* Visually hidden text for screen readers */
+.task-list-container-main-view .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.task-list-container-main-view .task-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-list-container-main-view .task-list-item:hover {
+  background-color: #f1f1f1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-list-container-main-view .task-list-item h3 {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.task-list-container-main-view .task-list-item .status-toggle {
+  cursor: pointer;
+  font-size: 1.5em;
+}
+
+.task-list-container-main-view .task-list-item .remove-task-button {
+  background: none;
+  border: none;
+  color: #ff0000;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.task-list-container-main-view .task-list-item .remove-task-button:hover {
+  color: #cc0000;
 }

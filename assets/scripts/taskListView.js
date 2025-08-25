@@ -1,31 +1,130 @@
+import { createTaskListContainer } from './taskListContainer.js';
+
 document.addEventListener("DOMContentLoaded", () => {
   const taskListView = document.querySelector(".task-list-view");
+  if (!taskListView) {
+    console.error(".task-list-view element not found in the DOM.");
+    return;
+  }
   const taskListContainer = document.querySelector(".task-list-container");
-  const taskListButtons = document.querySelectorAll(".add-new-button");
+  const mainViewContainer = document.querySelector(".task-list-container-main-view");
 
-  taskListButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      if (taskListView) {
-        taskListView.classList.add("active");
+  // Retrieve saved task lists from local storage
+  const savedTaskLists = getTaskLists();
+
+  savedTaskLists.forEach((taskList) => {
+    const taskListElement = document.createElement("div");
+    taskListElement.classList.add("task-list-item");
+
+    // Set the title of the task list
+    const title = document.createElement("h3");
+    title.textContent = taskList.name;
+    taskListElement.appendChild(title);
+
+    // Add a button to open the detailed view
+    const openButton = document.createElement("button");
+    openButton.textContent = "Open";
+    openButton.addEventListener("click", () => {
+      console.log("Open button clicked for task list:", taskList.name);
+
+      // Ensure the taskListView element is visible
+      if (!taskListView.classList.contains("active")) {
+        console.warn("Adding 'active' class to taskListView.");
       }
+
+      taskListView.classList.add("active");
+      console.log("taskListView classes:", taskListView.className);
+
+      // Clear the detailed view container
+      taskListContainer.innerHTML = "";
+
+      // Use the createTaskListContainer function to populate the detailed view
+      const newContainer = createTaskListContainer(taskListContainer);
+      console.log("New container created:", newContainer);
+
+      // Set the title and tasks for the selected task list
+      const titleElement = newContainer.querySelector(".editable-title");
+      const ul = newContainer.querySelector("ul");
+
+      titleElement.textContent = taskList.name;
+      ul.innerHTML = ""; // Clear existing tasks
+      taskList.tasks.forEach((task) => {
+        const taskItem = document.createElement("li");
+        taskItem.className = `status-${task.status}`;
+        taskItem.setAttribute("data-status", task.status);
+
+        const taskName = document.createElement("div");
+        taskName.classList.add("task-name");
+        taskName.setAttribute("contenteditable", "true");
+        taskName.textContent = task.name;
+
+        taskItem.appendChild(taskName);
+        ul.appendChild(taskItem);
+      });
+
+      console.log("Task list populated with tasks:", taskList.tasks);
+
+      // Show the detailed view
+      taskListView.classList.add("active");
+      console.log("Detailed view activated.");
+
+      // Add the close-task-list-view-button
+      const closeButton = document.createElement('button');
+      closeButton.innerHTML = '&times;';
+      closeButton.classList.add('close-task-list-view-button');
+      closeButton.addEventListener('click', () => {
+        taskListView.classList.remove('active');
+      });
+      taskListView.appendChild(closeButton);
     });
+
+    taskListElement.appendChild(openButton);
+    mainViewContainer.appendChild(taskListElement);
   });
 
   const closeButton = document.createElement("button");
   closeButton.innerHTML = "&times;";
   closeButton.classList.add("close-task-list-view-button");
+  console.log("Close button created:", closeButton);
 
   if (taskListContainer) {
+    console.log("taskListContainer found:", taskListContainer);
     taskListContainer.appendChild(closeButton);
+    console.log("Close button appended to taskListContainer:", taskListContainer);
+  } else {
+    console.error("taskListContainer not found in the DOM.");
   }
 
   closeButton.addEventListener("click", () => {
+    console.log("Close button clicked. Removing 'active' class from taskListView.");
     taskListView.classList.remove("active");
   });
 
+  // Log the entire taskListView structure for debugging
+  console.log("taskListView structure:", taskListView);
+
   document.addEventListener("click", (event) => {
-    if (taskListView && !taskListView.contains(event.target) && !event.target.closest(".add-new-button")) {
-      taskListView.classList.remove("active");
+    if (taskListView && !taskListView.contains(event.target)) {
+      // taskListView.classList.remove("active");
     }
   });
 });
+
+function getTaskLists() {
+  const taskLists = localStorage.getItem("taskLists");
+  if (taskLists && taskLists !== "undefined") {
+    try {
+      const parsed = JSON.parse(taskLists);
+      return Array.isArray(parsed) ? parsed : []; // Ensure the result is an array
+    } catch (error) {
+      console.error("Invalid JSON in localStorage for taskLists:", error);
+      return []; // Return an empty array as a fallback
+    }
+  }
+  return []; // Return an empty array if no data is found
+}
+
+function saveToLocalStorage(key, data) {
+  // Save data to local storage
+  localStorage.setItem(key, JSON.stringify(data));
+}

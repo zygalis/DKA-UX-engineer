@@ -1,7 +1,7 @@
 import { createTaskItem } from './taskItem.js';
 import { addDeleteFunctionality } from './deleteTaskList.js';
 
-export function createTaskListContainer(taskListContainer) {
+export function createTaskListContainer(taskListContainer, taskListName = 'New Task List') {
   const newContainer = document.createElement('div');
   newContainer.classList.add('container');
   newContainer.classList.add('full-width');
@@ -17,7 +17,7 @@ export function createTaskListContainer(taskListContainer) {
   const title = document.createElement('h2');
   title.className = 'editable-title';
   title.setAttribute('contenteditable', 'true');
-  title.textContent = 'New Task List';
+  title.textContent = taskListName;
 
   const ul = document.createElement('ul');
   ul.appendChild(createTaskItem('Newly added task item', 1));

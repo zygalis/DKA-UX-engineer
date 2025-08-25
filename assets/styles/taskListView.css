@@ -13,9 +13,11 @@
 
 .task-list-view.active {
   display: flex;
+  visibility: visible;
 }
 
 .task-list-container {
+  position: relative; /* Ensure the container is the positioning context */
   background: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -23,3 +25,39 @@
   max-width: 600px;
   width: 100%;
 }
+
+.task-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
+
+.task-list-item h3 {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.task-list-item .status-toggle {
+  cursor: pointer;
+  font-size: 1.5em;
+}
+
+.task-list-item .remove-task-button {
+  background: none;
+  border: none;
+  color: #ff0000;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.task-list-item .remove-task-button:hover {
+  color: #cc0000;
+}
+
+
