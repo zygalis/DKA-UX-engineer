@@ -53,8 +53,8 @@ export function getTaskLists() {
     return {
       name: taskList.name,
       tasks: taskList.tasks.map((task) => ({
-        text: task.text,
-        status: task.status,
+        text: task.text || 'Unnamed Task',
+        status: task.status || 1,
       })),
     };
   });
