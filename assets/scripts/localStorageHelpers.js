@@ -5,8 +5,17 @@ export function saveTaskLists(taskLists) {
     return;
   }
 
+  const existingNames = getTaskLists().map(taskList => taskList.name);
+
   const data = taskLists.map((taskListElement) => {
     const name = taskListElement.querySelector('h3').textContent;
+    console.log(`Processing task list name: ${name}`); // Log each name being processed
+
+    const validation = isValidTaskListName(name, existingNames);
+    if (!validation.valid) {
+      throw new Error(`Invalid task list name: ${name}. Error: ${validation.error}`); // Enforce validation strictly
+    }
+
     const tasks = Array.from(taskListElement.querySelectorAll('li')).map((task) => {
       return {
         text: task.querySelector('.task-text').textContent,
@@ -50,4 +59,16 @@ export function getFromLocalStorage(key) {
         console.error(`Error parsing data from localStorage for key "${key}":`, error);
         return null;
     }
+}
+
+// Function to validate task list name
+export function isValidTaskListName(name, existingNames = []) {
+    const nameRegex = /^[\p{L}\p{N}]{1,60}$/u; // Unicode letters and numbers, max 60 chars
+    if (!nameRegex.test(name)) {
+        return { valid: false, error: 'Name must consist only of Unicode letters and numbers and be at most 60 characters long.' };
+    }
+    if (existingNames.includes(name)) {
+        return { valid: false, error: 'Name must be unique. A task list with this name already exists.' };
+    }
+    return { valid: true };
 }
