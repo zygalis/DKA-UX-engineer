@@ -97,3 +97,24 @@
   outline: 2px solid #ff4c4c;
   outline-offset: 2px;
 }
+
+.close-task-list-view-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: transparent;
+  color: #ff6b6b;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-task-list-view-button:hover {
+  color: #ff4c4c;
+}
+
+.close-task-list-view-button:focus {
+  outline: 2px solid #ff4c4c;
+  outline-offset: 2px;
+}
