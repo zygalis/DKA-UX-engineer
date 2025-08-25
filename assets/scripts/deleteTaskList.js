@@ -1,19 +1,28 @@
+import { getTaskLists, saveToLocalStorage } from './localStorageHelpers.js';
+
 export function addDeleteFunctionality(taskListContainer) {
-  taskListContainer.querySelectorAll('.container').forEach(container => {
-    if (!container.querySelector('.delete-task-list-button')) {
-      const deleteButton = document.createElement('button');
-      deleteButton.className = 'delete-task-list-button';
-      deleteButton.innerHTML = '&times;';
-      deleteButton.setAttribute('aria-label', 'Delete this task list');
+  taskListContainer.querySelectorAll('.delete-task-list-button').forEach(deleteButton => {
+    deleteButton.addEventListener('click', () => {
+      const confirmation = confirm('Are you sure you want to delete this task list?');
+      if (confirmation) {
+        const container = deleteButton.closest('.container');
+        const taskListName = container.querySelector('h2').textContent;
+        console.log(`Deleting task list: ${taskListName}`);
 
-      deleteButton.addEventListener('click', () => {
-        const confirmation = confirm('Are you sure you want to delete this task list?');
-        if (confirmation) {
-          container.remove();
-        }
-      });
+        // Retrieve current task lists
+        const taskLists = getTaskLists();
 
-      container.prepend(deleteButton);
-    }
+        // Remove the task list from the array
+        const updatedTaskLists = taskLists.filter(taskList => taskList.name !== taskListName);
+
+        // Save the updated list back to local storage
+        saveToLocalStorage('taskLists', updatedTaskLists);
+
+        // Remove the task list from the DOM
+        container.remove();
+
+        console.log('Task list successfully removed from JavaScript and local storage.');
+      }
+    });
   });
 }

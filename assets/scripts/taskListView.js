@@ -1,6 +1,6 @@
 import { createTaskListContainer } from './taskListContainer.js';
 import { statuses } from './taskItem.js';
-import { getTaskLists } from './localStorageHelpers.js';
+import { getTaskLists, saveToLocalStorage } from './localStorageHelpers.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   const taskListView = document.querySelector(".task-list-view");
@@ -132,7 +132,17 @@ document.addEventListener("DOMContentLoaded", () => {
     deleteButton.addEventListener('click', () => {
       const confirmation = confirm('Are you sure you want to delete this task list?');
       if (confirmation) {
+        const taskListName = taskList.name;
+
+        // Remove the task list from the DOM
         taskListElement.remove();
+
+        // Update local storage
+        const taskLists = getTaskLists();
+        const updatedTaskLists = taskLists.filter(taskList => taskList.name !== taskListName);
+        saveToLocalStorage('taskLists', updatedTaskLists);
+
+        console.log(`Task list "${taskListName}" successfully deleted.`);
       }
     });
 
