@@ -1,4 +1,5 @@
 import { createTaskItem } from './taskItem.js';
+import { addDeleteFunctionality } from './deleteTaskList.js';
 
 export function createTaskListContainer(taskListContainer) {
   const newContainer = document.createElement('div');
@@ -105,4 +106,7 @@ export function createTaskListContainer(taskListContainer) {
 
   newContainer.append(title, filterFieldset, addTaskBtn, ul);
   taskListContainer.appendChild(newContainer);
+
+  // Call the delete functionality after creating the task list container
+  addDeleteFunctionality(taskListContainer);
 }
