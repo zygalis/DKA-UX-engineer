@@ -4,6 +4,7 @@ import { addDeleteFunctionality } from './deleteTaskList.js';
 export function createTaskListContainer(taskListContainer) {
   const newContainer = document.createElement('div');
   newContainer.classList.add('container');
+  newContainer.classList.add('full-width');
   newContainer.setAttribute('data-modal', `modal-${Date.now()}`);
 
   // Create a live region for screen readers

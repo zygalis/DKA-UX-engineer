@@ -2,6 +2,7 @@ import { createTaskListContainer } from './taskListContainer.js';
 
 const taskListContainer = document.querySelector('.task-list-container');
 const addNewButton = document.querySelector('.add-new-button');
+const taskListView = document.querySelector('.task-list-view');
 
 // Create a live region for screen readers
 const liveRegion = document.createElement('div');
@@ -14,8 +15,10 @@ document.body.appendChild(liveRegion);
 addNewButton.addEventListener('click', () => {
   createTaskListContainer(taskListContainer);
 
-   liveRegion.textContent = '';
-    setTimeout(() => {
-      liveRegion.textContent = 'New task list added';
-    }, 100); // Delay to allow screen readers to detect the change
+  taskListView.classList.add('active');
+
+  liveRegion.textContent = '';
+  setTimeout(() => {
+    liveRegion.textContent = 'New task list added';
+  }, 100); // Delay to allow screen readers to detect the change
 });
