@@ -1,3 +1,5 @@
+import { saveTaskLists } from './localStorageHelpers.js';
+
 const statuses = [
   { class: 'status-1', label: 'Status: Not Started', icon: '⚪' },
   { class: 'status-2', label: 'Status: In Progress', icon: '⏳' },
@@ -74,11 +76,12 @@ export function createTaskItem(text = '', status = 1) {
     }
   });
 
-  // Notify screen readers when a new task is added
+  // Notify screen readers and save tasks when a new task is added
   taskText.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       liveRegion.textContent = 'New task item added';
+      saveTaskLists(document.querySelectorAll('.task-list'));
     }
   });
 
@@ -96,6 +99,7 @@ export function createTaskItem(text = '', status = 1) {
   // Add click event listener to remove the task
   removeBtn.addEventListener('click', () => {
     li.remove();
+    saveTaskLists(document.querySelectorAll('.task-list'));
     liveRegion.textContent = 'Task removed';
   });
 

@@ -110,4 +110,7 @@ export function createTaskListContainer(taskListContainer) {
 
   // Call the delete functionality after creating the task list container
   addDeleteFunctionality(taskListContainer);
+
+  // Return the newly created container
+  return newContainer;
 }

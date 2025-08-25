@@ -1,4 +1,6 @@
 import { createTaskListContainer } from './taskListContainer.js';
+import { getTaskLists } from './localStorageHelpers.js';
+import { createTaskItem } from './taskItem.js';
 
 const taskListContainer = document.querySelector('.task-list-container');
 const addNewButton = document.querySelector('.add-new-button');
@@ -10,6 +12,18 @@ liveRegion.setAttribute('aria-live', 'polite');
 liveRegion.setAttribute('role', 'status');
 liveRegion.className = 'visually-hidden';
 document.body.appendChild(liveRegion);
+
+// Load task lists from localStorage on page load
+window.addEventListener('DOMContentLoaded', () => {
+  const taskLists = getTaskLists();
+  taskLists.forEach((taskList) => {
+    const taskListElement = createTaskListContainer(taskListContainer, taskList.name);
+    taskList.tasks.forEach((task) => {
+      const taskItem = createTaskItem(task.text, task.status);
+      taskListElement.querySelector('ul').appendChild(taskItem);
+    });
+  });
+});
 
 // Add new container on button click
 addNewButton.addEventListener('click', () => {
