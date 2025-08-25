@@ -78,21 +78,19 @@
 }
 
 .delete-task-list-button {
-  display: inline-block; 
-  margin-right: auto;
-  background-color: #ff6b6b;
-  color: white;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: transparent;
+  color: #ff6b6b;
   border: none;
-  border-radius: 4px;
-  padding: 8px 12px;
+  font-size: 1.5rem;
   cursor: pointer;
-  font-size: 0.875rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
 .delete-task-list-button:hover {
-  background-color: #ff4c4c;
+  color: #ff4c4c;
 }
 
 .delete-task-list-button:focus {

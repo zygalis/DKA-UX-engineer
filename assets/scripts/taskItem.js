@@ -24,7 +24,7 @@ export function createTaskItem(text = '', status = 1) {
     li.setAttribute('data-status', nextStatus);
     li.setAttribute('aria-label', statuses[nextStatus - 1].label);
     statusToggle.textContent = statuses[nextStatus - 1].icon;
-    statusToggle.setAttribute('aria-label', `Change status to ${statuses[nextStatus % 3].label}`);
+    statusToggle.setAttribute('aria-label', `Task status toggle: Current status is ${statuses[nextStatus - 1].label}. Change status to ${statuses[nextStatus % 3].label}`);
   }
 
   // Function to handle status toggle click
@@ -85,7 +85,7 @@ export function createTaskItem(text = '', status = 1) {
   // Create the remove button
   const removeBtn = document.createElement('button');
   removeBtn.className = 'remove-task-button';
-  removeBtn.textContent = '✖'; // Visible symbol for sighted users
+  removeBtn.innerHTML = '&times;';
 
   // Append a visually hidden text for screen readers
   const hiddenText = document.createElement('span');

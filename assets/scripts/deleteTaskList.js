@@ -3,7 +3,7 @@ export function addDeleteFunctionality(taskListContainer) {
     if (!container.querySelector('.delete-task-list-button')) {
       const deleteButton = document.createElement('button');
       deleteButton.className = 'delete-task-list-button';
-      deleteButton.textContent = 'Delete List';
+      deleteButton.innerHTML = '&times;';
       deleteButton.setAttribute('aria-label', 'Delete this task list');
 
       deleteButton.addEventListener('click', () => {
@@ -13,7 +13,7 @@ export function addDeleteFunctionality(taskListContainer) {
         }
       });
 
-      container.appendChild(deleteButton);
+      container.prepend(deleteButton);
     }
   });
 }
