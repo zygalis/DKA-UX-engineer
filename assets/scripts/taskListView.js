@@ -55,10 +55,10 @@ document.addEventListener("DOMContentLoaded", () => {
         taskItem.className = `status-${task.status}`;
         taskItem.setAttribute("data-status", task.status);
 
-        const taskName = document.createElement("div");
-        taskName.classList.add("task-name");
-        taskName.setAttribute("contenteditable", "true");
-        taskName.textContent = task.text || '';
+        const taskText = document.createElement("div");
+        taskText.classList.add("task-text");
+        taskText.setAttribute("contenteditable", "true");
+        taskText.textContent = task.text || '';
 
         // Add status icon to the task item
         const statusIcon = document.createElement("span");
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
         taskContent.style.alignItems = 'center'; // Vertically center the content
 
         taskContent.appendChild(statusIcon);
-        taskContent.appendChild(taskName);
+        taskContent.appendChild(taskText);
 
         taskItem.appendChild(taskContent);
         ul.appendChild(taskItem);

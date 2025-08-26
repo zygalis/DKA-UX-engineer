@@ -30,7 +30,6 @@ export function saveTaskLists(taskLists) {
 
 // Retrieve task lists from localStorage
 export function getTaskLists() {
-  console.log('getTaskLists()');
   const data = localStorage.getItem('taskLists');
   if (!data) return [];
 
