@@ -17,20 +17,20 @@
 
 /* Status: Not Started */
 .container ul li.status-1 {
-  background-color: #e8f5e9;
-  color: #2e7d32;
+  background-color: #e2e8f0;
+  color: #1e293b;
 }
 
 /* Status: In Progress */
 .container ul li.status-2 {
-  background-color: #c8e6c9;
-  color: #1b5e20;
+  background-color: #b9c9e4;
+  color: #1e293b;
 }
 
 /* Status: Completed */
 .container ul li.status-3 {
-  background-color: #a5d6a7;
-  color: #4caf50; 
+  background-color: #5c6b86;
+  color: #1e293b;
 }
 
 /* Status toggle styles */
@@ -54,7 +54,7 @@
 }
 
 .task-text:focus {
-  outline: 2px solid #66bb6a;
+  outline: 2px solid #5c6b86;
   background-color: #e8f5e9;
 }
 

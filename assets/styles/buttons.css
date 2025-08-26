@@ -7,16 +7,12 @@
   padding: 0.5rem 1rem;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.add-new-button {
-  background-color: #d9cbb6;
-  color: #5a5a3f;
+  background-color: #1e293b;
+  color: #f8fafc;
 }
 
 .add-new-button:hover {
-  background-color: #c4b79e;
-  color: #3e3e2c;
+  background-color: #64748b;
 }
 
 .button-toolbar {
@@ -39,8 +35,8 @@
 /* Style for the add task button */
 .add-task-button {
   display: inline-block;
-  background-color: #d9cbb6;
-  color: #5a5a3f;
+  background-color: #1e293b;
+  color: #ffffff;
   border: none;
   border-radius: 4px;
   padding: 8px 12px;
@@ -51,30 +47,13 @@
 }
 
 .add-task-button:hover {
-  background-color: #c4b79e;
-  color: #3e3e2c;
+  background-color: #334155;
+  color: #e2e8f0;
 }
 
 .add-task-button:focus {
-  outline: 2px solid #c4b79e;
+  outline: 2px solid #334155;
   outline-offset: 2px;
-}
-
-.neutral-button {
-  background-color: #ffffff;
-  color: #444;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 0.4rem 0.8rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
-}
-
-.neutral-button:hover {
-  background-color: #f5f5f5;
-  border-color: #bbb;
 }
 
 .delete-task-list-button {
@@ -137,8 +116,8 @@
 /* Updated style for the save task button to match the application theme */
 .save-task-button {
   display: inline-block;
-  background-color: #d9cbb6; /* Matching the application theme */
-  color: #5a5a3f;
+  background-color: #0f172a;
+  color: #ffffff;
   border: none;
   border-radius: 4px;
   padding: 8px 12px;
@@ -149,20 +128,20 @@
 }
 
 .save-task-button:hover {
-  background-color: #c4b79e; /* Matching hover color */
-  color: #3e3e2c;
+  background-color: #1e293b;
+  color: #e2e8f0;
 }
 
 .save-task-button:focus {
-  outline: 2px solid #c4b79e;
+  outline: 2px solid #1e293b;
   outline-offset: 2px;
 }
 
 /* Updated style for the create list button to match the application theme */
 .create-list-button {
   display: inline-block;
-  background-color: #d9cbb6; /* Matching the application theme */
-  color: #5a5a3f;
+  background-color: #0f172a;
+  color: #ffffff;
   border: none;
   border-radius: 4px;
   padding: 8px 12px;
@@ -173,20 +152,19 @@
 }
 
 .create-list-button:hover {
-  background-color: #c4b79e; /* Matching hover color */
-  color: #3e3e2c;
+  background-color: #1e293b;
+  color: #e2e8f0;
 }
 
 .create-list-button:focus {
-  outline: 2px solid #c4b79e;
+  outline: 2px solid #1e293b;
   outline-offset: 2px;
 }
 
-/* Style for the open button */
 .open-button {
   display: inline-block;
-  background-color: #d9cbb6;
-  color: #5a5a3f;
+  background-color: #1e293b;
+  color: #f8fafc; 
   border: none;
   border-radius: 4px;
   padding: 8px 12px;
@@ -197,12 +175,12 @@
 }
 
 .open-button:hover {
-  background-color: #c4b79e;
-  color: #3e3e2c;
+  background-color: #64748b;
+  color: #e2e8f0;
 }
 
 .open-button:focus {
-  outline: 2px solid #c4b79e;
+  outline: 2px solid #64748b;
   outline-offset: 2px;
 }
 
