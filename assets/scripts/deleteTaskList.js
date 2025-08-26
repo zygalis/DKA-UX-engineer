@@ -7,7 +7,6 @@ export function addDeleteFunctionality(taskListContainer) {
       if (confirmation) {
         const container = deleteButton.closest('.container');
         const taskListName = container.querySelector('h2').textContent;
-        console.log(`Deleting task list: ${taskListName}`);
 
         // Retrieve current task lists
         const taskLists = getTaskLists();
@@ -20,8 +19,6 @@ export function addDeleteFunctionality(taskListContainer) {
 
         // Remove the task list from the DOM
         container.remove();
-
-        console.log('Task list successfully removed from JavaScript and local storage.');
       }
     });
   });

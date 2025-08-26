@@ -3,7 +3,7 @@ import { addDeleteFunctionality } from './deleteTaskList.js';
 import { createTaskFilter } from './taskFilter.js';
 import { getTaskLists, isValidTaskListName } from './localStorageHelpers.js';
 
-export function createTaskListContainer(taskListContainer, taskListName = 'New Task List', editMode = false) {
+export function createTaskListContainer(taskListContainer, taskListName = 'NewTaskList', editMode = false) {
   const newContainer = document.createElement('div');
   newContainer.classList.add('container');
   newContainer.classList.add('full-width');
@@ -62,9 +62,9 @@ export function createTaskListContainer(taskListContainer, taskListName = 'New T
       }
 
       const updatedTasks = Array.from(newContainer.querySelectorAll('ul li')).map(taskItem => {
-        const taskTextElement = taskItem.querySelector('.task-text');
-        const taskText = taskTextElement && taskTextElement.textContent.trim() !== '' 
-          ? taskTextElement.textContent.trim() 
+        const taskNameElement = taskItem.querySelector('.task-name');
+        const taskText = taskNameElement && taskNameElement.textContent.trim() !== '' 
+          ? taskNameElement.textContent.trim() 
           : 'Unnamed Task';
         const taskStatus = parseInt(taskItem.getAttribute('data-status'), 10) || 1;
 
@@ -82,7 +82,6 @@ export function createTaskListContainer(taskListContainer, taskListName = 'New T
       }
 
       localStorage.setItem('taskLists', JSON.stringify(taskLists));
-      console.log('Task list saved:', { name: updatedName, tasks: updatedTasks });
       alert('Task list saved successfully!');
 
       // Close and refresh the page
@@ -98,7 +97,7 @@ export function createTaskListContainer(taskListContainer, taskListName = 'New T
     createListButton.textContent = 'Create List';
     createListButton.style.marginLeft = '10px'; // Add spacing for alignment
     createListButton.addEventListener('click', () => {
-      const newListName = newContainer.querySelector('.editable-title')?.textContent || 'New Task List';
+      const newListName = newContainer.querySelector('.editable-title')?.textContent || 'NewTaskList';
       const taskLists = getTaskLists();
       const existingNames = taskLists.map(list => list.name);
 
@@ -109,9 +108,9 @@ export function createTaskListContainer(taskListContainer, taskListName = 'New T
       }
 
       const newTasks = Array.from(newContainer.querySelectorAll('ul li')).map(taskItem => {
-        const taskTextElement = taskItem.querySelector('.task-text');
-        const taskText = taskTextElement && taskTextElement.textContent.trim() !== '' 
-          ? taskTextElement.textContent.trim() 
+        const taskNameElement = taskItem.querySelector('.task-name');
+        const taskText = taskNameElement && taskNameElement.textContent.trim() !== '' 
+          ? taskNameElement.textContent.trim() 
           : 'Unnamed Task';
         const taskStatus = parseInt(taskItem.getAttribute('data-status'), 10) || 1;
 
@@ -123,7 +122,6 @@ export function createTaskListContainer(taskListContainer, taskListName = 'New T
 
       taskLists.push({ name: newListName, tasks: newTasks });
       localStorage.setItem('taskLists', JSON.stringify(taskLists));
-      console.log('New task list created:', { name: newListName, tasks: newTasks });
       alert('New task list created successfully!');
 
       // Close and refresh the page

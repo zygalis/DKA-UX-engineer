@@ -29,7 +29,7 @@ window.addEventListener('DOMContentLoaded', () => {
 addNewButton.addEventListener('click', () => {
   taskListContainer.innerHTML = '';
 
-  const newTaskList = { name: 'New Task List', tasks: [] };
+  const newTaskList = { name: 'NewTaskList', tasks: [] };
   const taskListElement = createTaskListContainer(taskListContainer, newTaskList.name);
 
   taskListView.classList.add('active');

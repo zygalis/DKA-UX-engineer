@@ -59,20 +59,6 @@
   background-color: #e8f5e9;
 }
 
-/* Remove button styles */
-.remove-task-button {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  color: #888;
-  font-size: 16px;
-  cursor: pointer;
-  transition: color 0.2s ease, transform 0.2s ease;
-}
-
 /* Visually hidden text for screen readers */
 .visually-hidden {
   position: absolute;

@@ -9,11 +9,10 @@ export function saveTaskLists(taskLists) {
 
   const data = taskLists.map((taskListElement) => {
     const name = taskListElement.querySelector('h3').textContent;
-    console.log(`Processing task list name: ${name}`); // Log each name being processed
 
     const validation = isValidTaskListName(name, existingNames);
     if (!validation.valid) {
-      throw new Error(`Invalid task list name: ${name}. Error: ${validation.error}`); // Enforce validation strictly
+      throw new Error(`Invalid task list name: ${name}. Error: ${validation.error}`);
     }
 
     const tasks = Array.from(taskListElement.querySelectorAll('li')).map((task) => {

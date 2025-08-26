@@ -25,24 +25,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Add a button to open the detailed view
     const openButton = document.createElement("button");
-    openButton.textContent = "Open";
+    openButton.textContent = "Open Task List";  
     openButton.classList.add('open-button');
+        // Add focus event for audio cue on the open button
+    openButton.addEventListener("focus", () => {
+      const focusUtterance = new SpeechSynthesisUtterance(`Focus on Open Task List button for: ${taskList.name}`);
+      speechSynthesis.speak(focusUtterance);
+    });
     openButton.addEventListener("click", () => {
-      console.log("Open button clicked for task list:", taskList.name);
-
-      // Ensure the taskListView element is visible
-      if (!taskListView.classList.contains("active")) {
-        console.warn("Adding 'active' class to taskListView.");
-      }
-
       taskListView.classList.add("active");
-      console.log("taskListView classes:", taskListView.className);
 
       // Clear the detailed view container
       taskListContainer.innerHTML = "";
 
       const newContainer = createTaskListContainer(taskListContainer, taskList.name, true);
-      console.log("New container created:", newContainer);
 
       // Set the title and tasks for the selected task list
       const titleElement = newContainer.querySelector(".editable-title");
@@ -105,11 +101,8 @@ document.addEventListener("DOMContentLoaded", () => {
         ul.appendChild(taskItem);
       });
 
-      console.log("Task list populated with tasks:", taskList.tasks);
-
       // Show the detailed view
       taskListView.classList.add("active");
-      console.log("Detailed view activated.");
 
       // Add the close-task-list-view-button
       const closeButton = document.createElement('button');
@@ -141,9 +134,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const taskLists = getTaskLists();
         const updatedTaskLists = taskLists.filter(taskList => taskList.name !== taskListName);
         saveToLocalStorage('taskLists', updatedTaskLists);
-
-        console.log(`Task list "${taskListName}" successfully deleted.`);
       }
+    });
+    deleteButton.addEventListener("focus", () => {
+      const focusUtterance = new SpeechSynthesisUtterance(`Focus on Delete Task List button for: ${taskList.name}`);
+      speechSynthesis.speak(focusUtterance);
     });
 
     openButton.insertAdjacentElement('afterend', deleteButton);
@@ -154,23 +149,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeButton = document.createElement("button");
   closeButton.innerHTML = "&times;";
   closeButton.classList.add("close-task-list-view-button");
-  console.log("Close button created:", closeButton);
 
   if (taskListContainer) {
-    console.log("taskListContainer found:", taskListContainer);
     taskListContainer.appendChild(closeButton);
-    console.log("Close button appended to taskListContainer:", taskListContainer);
   } else {
     console.error("taskListContainer not found in the DOM.");
   }
 
   closeButton.addEventListener("click", () => {
-    console.log("Close button clicked. Removing 'active' class from taskListView.");
     taskListView.classList.remove("active");
   });
-
-  // Log the entire taskListView structure for debugging
-  console.log("taskListView structure:", taskListView);
 
   document.addEventListener("click", (event) => {
     if (taskListView && !taskListView.contains(event.target)) {
