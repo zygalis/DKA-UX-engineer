@@ -141,11 +141,6 @@ export function createTaskListContainer(taskListContainer, taskListName = 'NewTa
     location.reload(); // Refresh the page
   });
 
-  // Style the close button to position it in the top-right corner
-  closeButton.style.position = 'absolute';
-  closeButton.style.top = '8px';
-  closeButton.style.right = '8px';
-
   newContainer.appendChild(closeButton);
 
   // Return the newly created container

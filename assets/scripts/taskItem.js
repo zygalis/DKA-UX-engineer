@@ -41,7 +41,6 @@ export function createTaskItem(text = '', status = 1) {
     const nextStatus = currentStatus === 3 ? 1 : currentStatus + 1;
     updateTaskStatus(li, statusToggle, nextStatus);
 
-    // Notify taskListView.js about the status change
     const ul = li.closest('ul');
     if (ul) {
       const index = Array.from(ul.children).indexOf(li);
@@ -91,7 +90,7 @@ export function createTaskItem(text = '', status = 1) {
     }
   });
 
-  // Notify screen readers and save tasks when a new task is added
+  // Notify screen readers when a new task is added
   taskText.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -108,7 +107,7 @@ export function createTaskItem(text = '', status = 1) {
   // Append a visually hidden text for screen readers
   const hiddenText = document.createElement('span');
   hiddenText.className = 'visually-hidden';
-  hiddenText.textContent = 'Remove task'; // Accessible label for screen readers
+  hiddenText.textContent = 'Remove task';
   removeBtn.appendChild(hiddenText);
 
   // Add click event listener to remove the task

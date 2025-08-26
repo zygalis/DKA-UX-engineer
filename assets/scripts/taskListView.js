@@ -27,79 +27,80 @@ document.addEventListener("DOMContentLoaded", () => {
     const openButton = document.createElement("button");
     openButton.textContent = "Open Task List";  
     openButton.classList.add('open-button');
-        // Add focus event for audio cue on the open button
+
+    // Add focus event for audio cue on the open button
     openButton.addEventListener("focus", () => {
       const focusUtterance = new SpeechSynthesisUtterance(`Focus on Open Task List button for: ${taskList.name}`);
       speechSynthesis.speak(focusUtterance);
     });
     openButton.addEventListener("click", () => {
-      taskListView.classList.add("active");
+    taskListView.classList.add("active");
 
-      // Clear the detailed view container
-      taskListContainer.innerHTML = "";
+    // Clear the detailed view container
+    taskListContainer.innerHTML = "";
 
-      const newContainer = createTaskListContainer(taskListContainer, taskList.name, true);
+    const newContainer = createTaskListContainer(taskListContainer, taskList.name, true);
 
-      // Set the title and tasks for the selected task list
-      const titleElement = newContainer.querySelector(".editable-title");
-      const ul = newContainer.querySelector("ul");
+    // Set the title and tasks for the selected task list
+    const titleElement = newContainer.querySelector(".editable-title");
+    const ul = newContainer.querySelector("ul");
 
-      titleElement.textContent = taskList.name;
-      ul.innerHTML = ""; // Clear existing tasks
-      taskList.tasks.forEach((task) => {
-        const taskItem = document.createElement("li");
-        taskItem.className = `status-${task.status}`;
-        taskItem.setAttribute("data-status", task.status);
+    titleElement.textContent = taskList.name;
+    ul.innerHTML = ""; // Clear existing tasks
+    taskList.tasks.forEach((task) => {
+      const taskItem = document.createElement("li");
+      taskItem.className = `status-${task.status}`;
+      taskItem.setAttribute("data-status", task.status);
 
-        const taskText = document.createElement("div");
-        taskText.classList.add("task-text");
-        taskText.setAttribute("contenteditable", "true");
-        taskText.textContent = task.text || '';
+      const taskText = document.createElement("div");
+      taskText.classList.add("task-text");
+      taskText.setAttribute("contenteditable", "true");
+      taskText.textContent = task.text || '';
 
-        // Add status icon to the task item
-        const statusIcon = document.createElement("span");
-        statusIcon.className = `status-icon status-${task.status}`;
-        statusIcon.textContent = statuses[task.status - 1].icon; // Set default value
-        taskItem.prepend(statusIcon);
+      // Add status icon to the task item
+      const statusIcon = document.createElement("span");
+      statusIcon.className = `status-icon status-${task.status}`;
+      statusIcon.textContent = statuses[task.status - 1].icon; // Set default value
+      taskItem.prepend(statusIcon);
 
-        // Add interactivity to the status icon
-        statusIcon.classList.add('status-toggle');
-        statusIcon.setAttribute('role', 'button');
-        statusIcon.setAttribute('tabindex', '0');
-        statusIcon.setAttribute('aria-label', `Change status. Current status: ${statuses[task.status - 1].label}`);
+      // Add interactivity to the status icon
+      statusIcon.classList.add('status-toggle');
+      statusIcon.setAttribute('role', 'button');
+      statusIcon.setAttribute('tabindex', '0');
+      statusIcon.setAttribute('aria-label', `Change status. Current status: ${statuses[task.status - 1].label}`);
 
-        statusIcon.addEventListener('click', () => {
-          const currentStatus = parseInt(taskItem.getAttribute('data-status'), 10);
-          const nextStatus = currentStatus === statuses.length ? 1 : currentStatus + 1;
+      statusIcon.addEventListener('click', () => {
+        const currentStatus = parseInt(taskItem.getAttribute('data-status'), 10);
+        const nextStatus = currentStatus === statuses.length ? 1 : currentStatus + 1;
 
-          taskItem.className = `status-${nextStatus}`;
-          taskItem.setAttribute('data-status', nextStatus);
-          statusIcon.className = `status-icon status-${nextStatus} status-toggle`;
-          statusIcon.textContent = statuses[nextStatus - 1].icon;
-          statusIcon.setAttribute('aria-label', `Change status. Current status: ${statuses[nextStatus - 1].label}`);
-        });
-
-        // Add keyboard support for status icon
-        statusIcon.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            statusIcon.click();
-          }
-        });
-
-        // Wrap status toggle and task name in a flex container
-        const taskContent = document.createElement('div');
-        taskContent.classList.add('task-content'); // Add a class for styling
-
-        taskContent.style.display = 'flex'; // Ensure horizontal alignment
-        taskContent.style.alignItems = 'center'; // Vertically center the content
-
-        taskContent.appendChild(statusIcon);
-        taskContent.appendChild(taskText);
-
-        taskItem.appendChild(taskContent);
-        ul.appendChild(taskItem);
+        taskItem.className = `status-${nextStatus}`;
+        taskItem.setAttribute('data-status', nextStatus);
+        statusIcon.className = `status-icon status-${nextStatus} status-toggle`;
+        statusIcon.textContent = statuses[nextStatus - 1].icon;
+        statusIcon.setAttribute('aria-label', `Change status. Current status: ${statuses[nextStatus - 1].label}`);
       });
+
+      // Add keyboard support for status icon
+      statusIcon.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          statusIcon.click();
+        }
+      });
+
+      // Wrap status toggle and task name in a flex container
+      const taskContent = document.createElement('div');
+      taskContent.classList.add('task-content'); // Add a class for styling
+
+      taskContent.style.display = 'flex'; // Ensure horizontal alignment
+      taskContent.style.alignItems = 'center'; // Vertically center the content
+
+      taskContent.appendChild(statusIcon);
+      taskContent.appendChild(taskText);
+
+      taskItem.appendChild(taskContent);
+      ul.appendChild(taskItem);
+    });
 
       // Show the detailed view
       taskListView.classList.add("active");
@@ -158,11 +159,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   closeButton.addEventListener("click", () => {
     taskListView.classList.remove("active");
-  });
-
-  document.addEventListener("click", (event) => {
-    if (taskListView && !taskListView.contains(event.target)) {
-      // taskListView.classList.remove("active");
-    }
   });
 });
