@@ -123,7 +123,9 @@ document.addEventListener("DOMContentLoaded", () => {
       taskListView.appendChild(closeButton);
     });
 
-    taskListElement.appendChild(openButton);
+    // Create a container for the buttons
+    const buttonContainer = document.createElement('div');
+    buttonContainer.classList.add('task-list-button-container');
 
     // Add delete button next to the open button during initial rendering
     const deleteButton = document.createElement('button');
@@ -149,7 +151,12 @@ document.addEventListener("DOMContentLoaded", () => {
       liveRegion.textContent = `Focus on Delete Task List button for: ${taskList.name}`;
     });
 
-    openButton.insertAdjacentElement('afterend', deleteButton);
+    // Append the open and delete buttons to the container
+    buttonContainer.appendChild(openButton);
+    buttonContainer.appendChild(deleteButton);
+
+    // Add the button container underneath the task list name
+    taskListElement.appendChild(buttonContainer);
 
     mainViewContainer.appendChild(taskListElement);
   });

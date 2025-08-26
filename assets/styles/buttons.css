@@ -77,10 +77,9 @@
   border-color: #bbb;
 }
 
-/* Adjusted style for the delete-task-list-button to align next to the open button */
 .delete-task-list-button {
-  position: static; /* Reset position to align with open button */
-  margin-left: 10px; /* Add spacing between buttons */
+  position: static; 
+  margin-left: 10px; 
   background-color: transparent;
   color: #ff6b6b;
   border: none;
@@ -218,4 +217,10 @@
   font-size: 16px;
   cursor: pointer;
   transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.task-list-button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Add spacing between buttons */
 }
