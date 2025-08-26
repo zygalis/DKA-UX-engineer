@@ -31,7 +31,6 @@
 .container ul li.status-3 {
   background-color: #a5d6a7;
   color: #4caf50; 
-  text-decoration: line-through overline;
 }
 
 /* Status toggle styles */

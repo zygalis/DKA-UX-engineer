@@ -62,7 +62,7 @@ export function createTaskListContainer(taskListContainer, taskListName = 'NewTa
       }
 
       const updatedTasks = Array.from(newContainer.querySelectorAll('ul li')).map(taskItem => {
-        const taskNameElement = taskItem.querySelector('.task-name');
+        const taskNameElement = taskItem.querySelector('.task-text');
         const taskText = taskNameElement && taskNameElement.textContent.trim() !== '' 
           ? taskNameElement.textContent.trim() 
           : 'Unnamed Task';
@@ -108,7 +108,7 @@ export function createTaskListContainer(taskListContainer, taskListName = 'NewTa
       }
 
       const newTasks = Array.from(newContainer.querySelectorAll('ul li')).map(taskItem => {
-        const taskNameElement = taskItem.querySelector('.task-name');
+        const taskNameElement = taskItem.querySelector('.task-text');
         const taskText = taskNameElement && taskNameElement.textContent.trim() !== '' 
           ? taskNameElement.textContent.trim() 
           : 'Unnamed Task';

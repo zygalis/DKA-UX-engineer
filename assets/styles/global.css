@@ -25,3 +25,45 @@ header p {
   margin: 0;
   color: #a89f91;
 }
+
+/* Responsive styles for taskListView */
+.task-list-view {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Adjust layout for smaller screens */
+@media (max-width: 768px) {
+  .task-list-view {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .task-list-item {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-list-view {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .task-list-item {
+    font-size: 0.9rem;
+  }
+}
+
+/* Truncate task list name if it overflows */
+.task-list-item h3 {
+  max-width: 200px; /* Adjust as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

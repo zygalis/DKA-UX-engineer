@@ -23,15 +23,23 @@ document.addEventListener("DOMContentLoaded", () => {
     title.textContent = taskList.name;
     taskListElement.appendChild(title);
 
+    // Set tooltip for full task list name
+    title.setAttribute('title', taskList.name);
+
     // Add a button to open the detailed view
     const openButton = document.createElement("button");
     openButton.textContent = "Open Task List";  
     openButton.classList.add('open-button');
 
-    // Add focus event for audio cue on the open button
+    // Add focus event for screen reader announcement
+    const liveRegion = document.createElement('div');
+    liveRegion.setAttribute('aria-live', 'polite');
+    liveRegion.setAttribute('role', 'status');
+    liveRegion.className = 'visually-hidden';
+    document.body.appendChild(liveRegion);
+
     openButton.addEventListener("focus", () => {
-      const focusUtterance = new SpeechSynthesisUtterance(`Focus on Open Task List button for: ${taskList.name}`);
-      speechSynthesis.speak(focusUtterance);
+      liveRegion.textContent = `Focus on Open Task List button for: ${taskList.name}`;
     });
     openButton.addEventListener("click", () => {
     taskListView.classList.add("active");
@@ -138,8 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
     deleteButton.addEventListener("focus", () => {
-      const focusUtterance = new SpeechSynthesisUtterance(`Focus on Delete Task List button for: ${taskList.name}`);
-      speechSynthesis.speak(focusUtterance);
+      liveRegion.textContent = `Focus on Delete Task List button for: ${taskList.name}`;
     });
 
     openButton.insertAdjacentElement('afterend', deleteButton);
